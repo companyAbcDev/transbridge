@@ -1,31 +1,51 @@
-# TransBridge
+# TransBridge: NFT Cross-Network Bridging Platform
 
-Trans-Bridge Platform for NFT.
+TransBridge is a platform for bridging ERC-20 and NFT tokens between different blockchain networks using cutting-edge blockchain technology.
 
 ## Project Description
 
-List the key features of your project. In your case, you can mention that the project involves bridging ERC-20 and NFT tokens between different networks using blockchain technology.
+TransBridge is a robust platform that offers the following key features:
+
+- **Cross-Network Token Bridging:** Seamlessly transfer ERC-20 and NFT tokens between various blockchain networks, ensuring interoperability.
+
+- **Security and Transparency:** Built on the principles of blockchain technology, TransBridge guarantees the security and transparency of token transfers.
+
+- **User-Friendly Interface:** Our platform provides an intuitive and user-friendly interface for users to manage their token bridging operations effortlessly.
+
+- **Scalability:** TransBridge is designed to handle a high volume of token transfers, making it suitable for both individual users and enterprises.
+
+- **Auditing and Verification:** Every token bridging operation is recorded on the blockchain for auditing and verification purposes.
 
 ## Getting Started
 
-Explain the steps to run the project in a local environment. Include the necessary dependencies and how to start the project.
+To run TransBridge in a local environment, follow these steps:
 
-```bash
-# Install Dependencies
-npm install
+1. **Install Dependencies:** Use the following command to install the required dependencies:
 
-# Run the Project
-node server.js
-```
+    ```bash
+    npm install
+    ```
 
-# Prerequisites
-List the prerequisites for your project. In your case, specify the required Node.js and npm versions.
+2. **Run the Project:** Start the TransBridge server by running:
 
-Node.js version 20  or higher
-npm version 10 or higher
+    ```bash
+    node server.js
+    ```
 
-# Technologies Used
-Provide information about the technologies and libraries used in the project.
+## Prerequisites
 
-Node.js
-pm2
+Before running TransBridge, make sure you have the following prerequisites:
+
+- Node.js version 20 or higher
+- npm version 10 or higher
+
+## Technologies Used
+
+TransBridge is built using the following technologies and libraries:
+
+- Node.js
+- pm2
+
+## Contact Information
+
+For any inquiries or further information about ABC Lab and TransBridge, please feel free to contact us via email at info@abc.ne.kr.
