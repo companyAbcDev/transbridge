@@ -1,0 +1,19 @@
+const express = require('express');
+const https = require('https');
+const fs = require('fs');
+//const { TextDecoder } = require('util').TextDecoder;
+//const { TextEncoder } = require('util').TextEncoder;
+const { Buffer } = require('buffer');
+//global.TextEncoder = TextEncoder
+//global.TextDecoder = TextDecoder
+var app = require('../app');
+
+const HTTPS_PORT = 3302;
+
+const options = {
+  key: fs.readFileSync("./ssl/transbridge.key"),
+  cert: fs.readFileSync("./ssl/transbridge.crt")
+};
+
+// Create an HTTPS service identical to the HTTP service.
+https.createServer(options, app).listen(3302);

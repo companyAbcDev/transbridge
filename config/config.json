@@ -1,0 +1,20 @@
+{
+    "db_mainnet_connection": {
+        "host": "db.mainnet.transbridge.io",
+        "port": 44170,
+        "user": "cbridge",
+        "password": "fouri124ok",
+        "charset" : "utf8",
+        "database": "CBRIDGE",
+        "connectionLimit": 100
+    },
+    "db_testnet_connection": {
+        "host": "db.testnet.transbridge.io",
+        "port": 4407,
+        "user": "cbridge",
+        "password": "fouri123ok",
+        "charset" : "utf8",
+        "database": "CBRIDGE",
+        "connectionLimit": 100
+    }
+}
