@@ -2,8 +2,8 @@
     "db_mainnet_connection": {
         "host": "db.mainnet.transbridge.io",
         "port": 44170,
-        "user": "",
-        "password": "",
+        "user": "guest",
+        "password": "guest123",
         "charset" : "utf8",
         "database": "CBRIDGE",
         "connectionLimit": 100
