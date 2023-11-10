@@ -11,8 +11,8 @@
     "db_testnet_connection": {
         "host": "db.testnet.transbridge.io",
         "port": 4407,
-        "user": "",
-        "password": "",
+        "user": "guest",
+        "password": "guest123",
         "charset" : "utf8",
         "database": "CBRIDGE",
         "connectionLimit": 100
