@@ -7,7 +7,8 @@ const CHAIN_MAPPING = {
     bnb: "0x38",
     goerli : "0x5",
     baobab: "0x3e9",
-    mumbai : "0x13881"
+    mumbai : "0x13881",
+    tbnb : "0x61"
 };
 
 // Get Chain Id
@@ -38,7 +39,7 @@ const htmlInit = () => {
 
     document.querySelector('.baseFee').innerHTML = `<h1>-</h1>`;
     document.querySelector('.nftDeployFee').innerHTML = `<h1>-</h1>`;
-    document.querySelector('.toNetworkFront').innerHTML = "Ethereum";
+    document.querySelector('.toNetworkFront').innerHTML = "Goerli";
     document.querySelector('.toNetworkImage').innerHTML = `<img src="/img/ethereum.png">`;
 
     connectMetamask();
@@ -68,6 +69,9 @@ const getNetwork = async (_chainId) => {
             break;
         case "0x13881":
             network = "mumbai"
+            break;
+        case "0x61":
+            network = "tbnb"
             break;
     }
     return network;
@@ -117,6 +121,45 @@ const addNetwork = async (_chainId) => {
             },
                 blockExplorerUrls = ["https://bscscan.com/"]
             break
+        case "0x5":
+            chainName = "Goerli Testnet";
+            rpcUrls = ["https://rpc.ankr.com/eth_goerli"];
+            nativeCurrency = {
+                symbol: 'ETH',
+                decimals: 18
+            };
+            blockExplorerUrls = ["https://goerli.etherscan.io/"];
+            break;
+        case "0x3e9":
+            chainName = "Klaytn Baobab";
+            rpcUrls = ["https://public-en-baobab.klaytn.net/"];
+            nativeCurrency = {
+                symbol: 'KLAY',
+                decimals: 18
+            };
+            blockExplorerUrls = ["https://baobab.scope.klaytn.com/"];
+            break;
+        case "0x13881":
+            chainName = "Mumbai Testnet";
+            rpcUrls = ["https://rpc-mumbai.maticvigil.com/"];
+            nativeCurrency = {
+                symbol: 'MATIC',
+                decimals: 18
+            };
+            blockExplorerUrls = ["https://mumbai.polygonscan.com/"];
+            break;
+        case "0x61":
+            chainName = "BNB Chain Testnet";
+            rpcUrls = ["https://data-seed-prebsc-1-s1.binance.org:8545/"];
+            nativeCurrency = {
+                symbol: 'tBNB',
+                decimals: 18
+            };
+            blockExplorerUrls = ["https://testnet.bscscan.com/"];
+            break;
+        default:
+            console.error("Unknown chainId:", _chainId);
+            return;
     }
 
     const network = {
@@ -183,6 +226,9 @@ const connectMetamask = async () => {
     document.querySelectorAll('.bridge-list').forEach(div => {
         div.classList.remove('bridge-list-connect');
     });
+
+    console.log("chainId", chainId);
+    console.log("network", network);
 
 
     document.querySelector(`.${network}-connect`).classList.add('bridge-list-connect')

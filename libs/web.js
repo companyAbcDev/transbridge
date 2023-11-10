@@ -83,8 +83,28 @@ const getBridgeTotalFeeAsync = async (network, toNetwork, collection_id, typed) 
     
 }
 
+const formatDateToCustomString = (date) => {
+
+    // 현재 날짜를 Date 객체로 파싱합니다.
+    const currentDate = new Date(date);
+    
+    // 8시간을 더합니다.
+    currentDate.setHours(currentDate.getHours() + 9);
+
+    const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    };
+
+    return currentDate.toLocaleString('ko-KR', options);
+}
+
 const getHistory = async (account, types) => {
-    const connection = await connect.getConnection(config.db_mainnet_connection);
+    const connection = await connect.getConnection(config.db_testnet_connection);
 
     if (!connection) {
         return [];
@@ -105,6 +125,15 @@ const getHistory = async (account, types) => {
         `;
 
         const [rows] = await connect.runQuery(connection, strQuery, []);
+
+        // 1. date 형식 변경
+        for (const row of rows) {
+            if(!row.value) row.value = 18;
+            row.date = formatDateToCustomString(row.date);
+            const amount = ethers.utils.formatUnits(row.amount, row.value);
+            row.formattedAmount = amount.toString();
+        }
+
         return rows;
     } catch (err) {
         throw err;
@@ -343,7 +372,7 @@ const bridgeErc20AsyncAsync = async (network, account, toNetwork, token_address,
             );
 
             functionData = bridgeContract.interface.encodeFunctionData('moveFromERC20', [
-                toNetworkHex, token_address, token_id
+                toNetworkHex, token_address, totalAmount
             ]);
 
             toContractAddress = global.bridgeContractAddress;

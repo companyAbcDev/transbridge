@@ -99,7 +99,7 @@ const historyTokenView = async () => {
                                             Chaeck on ${bridgeHistoryElement.toNet} Explorer
                                         </span>
                                     </li>
-                                    <li onclick="window.open('/b2c/token/${account}')">
+                                    <li onclick="window.open('/history/${account}')">
                                         <div class="token-icon"><img src="/img/transbridgelogo.png"></div>
                                         <span>
                                             Chaeck on Transbridge Explorer
@@ -146,7 +146,7 @@ const tokenHtmlInit = async () => {
 
     document.querySelector('.baseFee').innerHTML = `<h1>-</h1>`;
     document.querySelector('.nftDeployFee').innerHTML = `<h1>-</h1>`;
-    document.querySelector('.toNetworkFront').innerHTML = "Ethereum";
+    document.querySelector('.toNetworkFront').innerHTML = "Gorli";
     document.querySelector('.toNetworkImage').innerHTML = `<img src="/img/ethereum.png">`;
     const gasPriceCall = await fetch(`/getGasPrice/${network}`);
     const gasPriceValue = await gasPriceCall.json();

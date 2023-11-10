@@ -80,7 +80,7 @@ const historyView = async () => {
                                             Chaeck on ${bridgeHistoryElement.toNet} Explorer
                                         </span>
                                     </li>
-                                    <li onclick="window.open('/b2c/nft/${account}')">
+                                    <li onclick="window.open('/nft/history/${account}')">
                                         <div class="token-icon"><img src="/img/transbridgelogo.svg"></div>
                                         <span>
                                             Chaeck on Transbridge Explorer
@@ -128,6 +128,8 @@ const nftListView = async (account) => {
 
     var data = await response.json();
     const nft_list = data.value;
+
+
     if(document.querySelector(`.${network}-list`)) {
         document.querySelector(`.${network}-list`).innerHTML = "";
         let sum = 0;
@@ -153,7 +155,7 @@ const nftListView = async (account) => {
             element.innerHTML = sum;
         })
 
-        if(sum == 0) {
+        if(sum < 1) {
             nftEmptyList.forEach(element => {
                 element.style.display = 'block';
             });

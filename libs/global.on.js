@@ -58,9 +58,9 @@ const networkSettings = (network) => {
             break;
         case "goerli":
             global.rpcUrl = "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161";
-            global.maxPriorityFeePerGas = "20000";
+            global.maxPriorityFeePerGas = "10";
             global.bridgeConfigContractAddress = "0xff02de02c2025865624a48a7e57956c154dd98b3";
-            global.bridgeContractAddress = "0xc11735Ce3c155E755bC9839A5B5d06dEa0482306";
+            global.bridgeContractAddress = "0x78e03f230ede92f1aa206263f36cbd2a67cb8878";
             global.bridgeSetupContractAddress = "0x8a6d3789616f84031d88418ea022817aaf1943f1";
             global.uniswapV2RouterAddress = "";
             global.uniswapV2FactoryAddress = "";
@@ -90,14 +90,14 @@ const networkSettings = (network) => {
             global.gasLimit = "5500000";
             break;
         case "tbnb":
-            global.rpcUrl = "";
+            global.rpcUrl = "https://data-seed-prebsc-1-s1.binance.org:8545/";
             global.maxPriorityFeePerGas = "0";
-            global.bridgeConfigContractAddress = "";
+            global.bridgeConfigContractAddress = "0x9b0125085ccfec4e697b2e0d4ce0e3fe5f5eaf53";
             global.bridgeContractAddress = "0x808EE7147d91EAe0f658164248402ac380EB5F17";
-            global.bridgeSetupContractAddress = "";
+            global.bridgeSetupContractAddress = "0x393e24f691a3dbf0edbfe1fd5f0acaeb566eddb4";
             global.uniswapV2RouterAddress = "";
             global.uniswapV2FactoryAddress = "";
-            global.nftTransferContractAddress = "";
+            global.nftTransferContractAddress = "0xcab822accb20114c715aad8ca3315204f6f81d90";
             global.gasLimit = "0";
             break;
         default:

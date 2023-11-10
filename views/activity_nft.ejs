@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransBridge</title>
+    <!-- <link rel="stylesheet" href="transbridgecss/transbridge.css"> -->
+    <link rel="stylesheet" href="/css/transbridge.css">
+    <script src="/js/main.js"></script>
+    <script src="/js/global.js"></script>
+    <script src="/js/common/nft.js"></script>
+</head>
+<script>
+    const url = window.location.href;
+    const urlParts = url.split("/");
+    const account = urlParts[urlParts.length - 1];
+
+    // Get Img Url Function
+    const getImageUrl = (network) => {
+        switch (network) {
+            case "ETHEREUM":
+            case "ethereum":
+                return "/img/ethereum.png";
+            case "KLAYTN":
+            case "cypress":
+                return "/img/klaytn.png";
+            case "POLYGON":
+            case "polygon":
+                return "/img/polygon.png";
+            case "BNBMAIN":
+            case "bnb":
+                return "/img/binance.png";
+        }
+    }
+
+    const getExplorer = (network, hash) => {
+        switch (network) {
+            case "ETHEREUM":
+            case "ethereum":
+                return `https://etherscan.io/tx/${hash}`;
+            case "KLAYTN":
+            case "cypress":
+                return `https://scope.klaytn.com/tx/${hash}`;
+            case "POLYGON":
+            case "polygon":
+                return `https://polygonscan.com/tx/${hash}`;
+            case "BNBMAIN":
+            case "bnb":
+                return `https://bscscan.com/tx/${hash}`;
+        }
+
+    }
+    const updateDetails = (liElement) => {
+        const resvId = liElement.getAttribute("data-resvId");
+        const fromNet = liElement.getAttribute("data-fromNet");
+        const toNet = liElement.getAttribute("data-toNet");
+        const amount = liElement.getAttribute("data-amount");
+        const fromHash = liElement.getAttribute("data-fromHash");
+        const toHash = liElement.getAttribute("data-toHash");
+        const date = liElement.getAttribute("data-date");
+        const formattedAmount = liElement.getAttribute("data-formattedAmount");
+
+        document.getElementById("txAmount").innerHTML = amount;
+        document.getElementById("txStatus").innerHTML = "Confirmed"
+        document.getElementById("txFromNet").innerHTML = fromNet;
+        document.getElementById("txToNet").innerHTML = toNet;
+        document.getElementById("txDate").innerHTML = date;
+        document.getElementById("txId").innerHTML = `${resvId.slice(0, 15)}...`;
+        document.getElementById("txReId").innerHTML = resvId;
+        const accountElement = document.querySelectorAll('.accountShort')
+        accountElement.forEach(element => {
+            element.innerHTML = account.slice(0, 6) + "..."
+        });
+
+        document.getElementById("activityFromNet").innerHTML = fromNet;
+        document.getElementById("activityToNet").innerHTML = toNet;
+        document.getElementById("activityFromHash").innerHTML = `<a onclick="window.open('${getExplorer(fromNet, fromHash)}', '_blank')">${fromHash}</a>`;
+        document.getElementById("activityToHash").innerHTML = `<a onclick="window.open('${getExplorer(toNet, toHash)}', '_blank')">${toHash}</a>`;;
+        document.getElementById("activityFromAmount").innerHTML = amount;
+        document.getElementById("activityToAmount").innerHTML = amount;
+        document.getElementById("activityFromContract").innerHTML = fromNet + " Bridge Contract";
+        document.getElementById("activityToContract").innerHTML = toNet + " Bridge Contract";
+
+
+        const exploreDft = document.querySelector('.explore-dft');
+        const exploreAll = document.querySelector('.explore-all');
+        exploreDft.style.display = 'none';
+        exploreAll.style.display = 'block';
+
+    }
+
+    const Bridges = async () => {
+        document.querySelector('.account').innerHTML = account;
+
+        const getShortAddress = `${account.slice(0, 6)}...${account.slice(-6)}`;
+        //fetch post method
+        var response = await fetch(`/history/${account}/nft`);
+
+        var data = await response.json();
+
+        console.log(data);
+
+        document.getElementById("transactionLength").innerHTML = data.length;
+
+        const bridgesElement = document.querySelector('.bridges');
+
+        let count = 0;
+
+        for (const bridge of data) {
+            count ++
+            const historyElement = `
+            <li>
+            <div>${count}</div>
+            <div>${bridge.amount}</div>
+            <div>${bridge.status}</div>
+            <div>
+                <div>
+                    <i class="token-icon">
+                        <img src="${getImageUrl(bridge.fromNet)}">
+                    </i>
+                    <span>${bridge.fromNet}</span>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <i class="token-icon">
+                        <img src="${getImageUrl(bridge.toNet)}">
+                    </i>
+                    <span>${bridge.toNet}</span>
+                </div>
+            </div>
+            <div>
+                <span>${bridge.account.substr(0, 6)}...</span>
+            </div>
+            <div>
+                <span>${bridge.account.substr(0, 6)}...</span>
+            </div>
+            <div>${bridge.date}</div>
+            <div style="cursor: grab;" data-resvId="${bridge.resvId}" data-fromNet="${bridge.fromNet}"
+                    data-toNet="${bridge.toNet}" data-amount="${bridge.amount}"
+                    data-formattedAmount="${bridge.formattedAmount}" data-fromHash="${bridge.fromHash}" data-toHash="${bridge.toHash}" data-date="${bridge.date}"
+                    onclick="updateDetails(this)">
+                <a>${bridge.resvId}</a>
+            </div>
+            </li>
+            `
+            bridgesElement.insertAdjacentHTML('beforeend', historyElement);
+        }
+    }
+
+    const locationTokenHistory = () => {
+        location.href = `/history/${account}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        Bridges();
+    })
+</script>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div class="size-desktop">
+
+                <div class="header-left">
+                    <div class="logo"></div>
+                    <span>TransBridge</span>
+                </div>
+
+                <ul class="header-menu">
+                    <li class="token-menu header-menu-ckd">
+                        <a href="/">
+                            <span>Bridge</span>
+                        </a>
+                    </li>
+                    <li class="nft-menu">
+                        <a href="/nft">
+                            <span>NFT Bridge</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div>
+                </div>
+
+            </div>
+        </header>
+
+        <main class="bridge-main">
+            <div class="main-bg"></div>
+
+            <div class="activity explore-dft">
+                <div class="activity-back" onclick="location.href='/'">
+                    Token Bridge
+                </div>
+                <div class="activity-top">
+                    <h1>Address</h1>
+                    <div>
+                        <span class="account"></span>
+                    </div>
+                </div>
+
+                <div class="activity-opt">
+                    <div class="activity-opt-tap">
+                        <label onclick="locationTokenHistory()">
+                            <input type="radio" name="activity-opt-bridge" >
+                            <div>
+                                Bridge
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="activity-opt-bridge" checked>
+                            <div>
+                                NFT Bridge
+                            </div>
+                        </label>
+                    </div>
+                    <ul class="activity-opt-04">
+                        <li>
+                            <span>Transactions</span>
+                            <h2 id="transactionLength"></h2>
+                        </li>
+                        <li>
+                            <span>Address</span>
+                            <h2>1</h2>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="activity-opt">
+                    <h1>Recent Transactions</h1>
+
+                    <ul class="activity-opt-08 bridges">
+                        <li>
+                            <div>No.</div>
+                            <div>Amount</div>
+                            <div>Status</div>
+                            <div>Origin</div>
+                            <div>Destination</div>
+                            <div>From</div>
+                            <div>To</div>
+                            <div>Age</div>
+                            <div>TXID</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- <div class="center-bt">
+                <button>more transactions</button>
+            </div> -->
+            </div>
+
+            <div class="activity explore-all" style="display: none;">
+                <div class="activity-back" onclick="transactionBack()">
+                    Analytics
+                </div>
+                <div class="activity-top">
+                    <h1>TXID</h1>
+                    <div>
+                        <span id="txReId"></span>
+                    </div>
+                </div>
+
+                <div class="activity-opt">
+
+                    <ul class="activity-opt-08">
+                        <li>
+                            <div>Amount</div>
+                            <div>Status</div>
+                            <div>Origin</div>
+                            <div>Destination</div>
+                            <div>From</div>
+                            <div>To</div>
+                            <div>Age</div>
+                            <div>TXID</div>
+                        </li>
+                        <li>
+                            <div id="txAmount"></div>
+                            <div id="txStatus"></div>
+                            <div id="txFromNet"></div>
+                            <div id="txToNet"></div>
+                            <div>
+                                <span class="accountShort"></span>
+                            </div>
+                            <div>
+                                <span class="accountShort"></span>
+                            </div>
+                            <div id="txDate"></div>
+                            <div id="txId"></div>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <!--            <div class="activity-opt">-->
+                <!--                <div class="activity-opt-table">-->
+                <!--                    <h1>-->
+                <!--                        about 2 Hours ago-->
+                <!--                    </h1>-->
+
+                <!--                    <ul>-->
+                <!--                        <li>-->
+                <!--                            <span>Requested</span>-->
+                <!--                            <p>-->
+                <!--                                2023.10.5. 오후 2:23:44-->
+                <!--                            </p>-->
+                <!--                        </li>-->
+                <!--                        <li>-->
+                <!--                            <span>Confirmed</span>-->
+                <!--                            <p>-->
+                <!--                                2023.10.5. 오후 2:23:44-->
+                <!--                            </p>-->
+                <!--                        </li>-->
+                <!--                        <li>-->
+                <!--                            <span>Total Time</span>-->
+                <!--                            <p>-->
+                <!--                                249 seconds-->
+                <!--                            </p>-->
+                <!--                        </li>-->
+                <!--                    </ul>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <div class="activity-opt">
+                    <div class="activity-opt-table">
+                        <ul>
+                            <li>
+                                <span>Origin</span>
+                                <p id="activityFromNet">
+                                    Polygon
+                                </p>
+                            </li>
+                            <li>
+                                <span>From</span>
+                                <p>
+                                    0x81785cEc1C6Bf54a3b0B721E527a1E0E10b6b8Ac
+                                </p>
+                            </li>
+                            <li style="cursor: grab;">
+                                <span>TX Hash</span>
+                                <p id="activityFromHash" style="text-decoration: underline;">
+                                    0x13b32221709bbd940ff9b9ab0ef3bd40896e26be3093705920a806fdbe85b18b
+                                </p>
+                            </li>
+                            <li>
+                                <span>Contract</span>
+                                <p id="activityFromContract">
+                                    Origin Bridge Contract
+                                </p>
+                            </li>
+                            <li>
+                                <span style="font-weight: 600;">Sent</span>
+                                <p id="activityFromAmount">
+                                    2.00 -
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="activity-opt">
+                    <div class="activity-opt-table">
+                        <ul>
+                            <li>
+                                <span>Destination</span>
+                                <p id="activityToNet">
+                                    Polygon
+                                </p>
+                            </li>
+                            <li>
+                                <span>To</span>
+                                <p>
+                                    0x81785cEc1C6Bf54a3b0B721E527a1E0E10b6b8Ac
+                                </p>
+                            </li>
+                            <li style="cursor: grab;">
+                                <span>TX Hash</span>
+                                <p id="activityToHash" style="text-decoration: underline;">
+                                    0x13b32221709bbd940ff9b9ab0ef3bd40896e26be3093705920a806fdbe85b18b
+                                </p>
+                            </li>
+                            <li>
+                                <span>Contract</span>
+                                <p id="activityToContract">
+                                    Origin Bridge Contract
+                                </p>
+                            </li>
+                            <li>
+                                <span style="font-weight: 600;">Receive</span>
+                                <p id="activityToAmount">
+                                    2.00 -
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+</body>
+
+</html>

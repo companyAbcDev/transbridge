@@ -8,6 +8,11 @@ router.get('/', function(req, res, next) {
   res.render('nft', { title: 'Express' });
 });
 
+/* GET history page. */
+router.get('/history/:account', function(req, res, next) {
+  res.render('activity_nft', { title: 'Express' });
+});
+
 /**
 * 함수명 : nftBridgeAppoveAsync
 * 기능 : nft 승인

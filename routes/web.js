@@ -7,6 +7,11 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+/* GET history page. */
+router.get('/history/:account', function(req, res, next) {
+    res.render('activity', { title: 'Express' });
+});
+
 /**
 * 함수명 : getBalance
 * 기능 : 잔고조회

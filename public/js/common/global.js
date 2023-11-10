@@ -10,14 +10,37 @@ const showError = (selector) => {
 
 // Date Difference Calculation Function
 const daysDifference = (dateString) => {
+    // 입력 문자열에서 날짜 및 시간 추출
+    const match = dateString.match(/(\d{4}).\s(\d{2}).\s(\d{2}).\s(오전|오후)\s(\d{2}):(\d{2}):(\d{2})/);
+
+    if (!match) {
+        return NaN; // 날짜 형식이 맞지 않으면 NaN 반환
+    }
+
+    const year = parseInt(match[1]);
+    const month = parseInt(match[2]) - 1; // 월은 0부터 시작하므로 1을 빼줍니다.
+    const day = parseInt(match[3]);
+    const period = match[4];
+    let hours = parseInt(match[5]);
+    const minutes = parseInt(match[6]);
+    const seconds = parseInt(match[7]);
+
+    // 오전/오후에 따라 시간 조정
+    if (period === '오후' && hours < 12) {
+        hours += 12;
+    } else if (period === '오전' && hours === 12) {
+        hours = 0;
+    }
+
+    // 날짜를 생성
+    const inputDate = new Date(year, month, day, hours, minutes, seconds);
+    
+    // 현재 날짜 설정
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0); // 시간, 분, 초, 밀리초 초기화
 
-    const inputDate = new Date(dateString);
-    inputDate.setHours(0, 0, 0, 0);
-
+    // 날짜 차이 계산
     const diffInMilliseconds = currentDate - inputDate;
-
     const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
 
     return Math.abs(Math.floor(diffInDays));
@@ -44,15 +67,23 @@ const getExplorer = (network, hash) => {
 // Get Img Url Function
 const getImageUrl = (network) => {
     switch (network) {
+        case "GOERLI":
+        case "goerli":
         case "ETHEREUM":
         case "ethereum":
             return "/img/ethereum.png";
+        case "BAOBAB":
+        case "baobab":
         case "KLAYTN":
         case "cypress":
             return "/img/klaytn.png";
+        case "MUMBAI":
+        case "mumbai":
         case "POLYGON":
         case "polygon":
             return "/img/polygon.png";
+        case "TBNB":
+        case "tbnb":
         case "BNBMAIN":
         case "bnb":
             return "/img/binance.png";
@@ -63,12 +94,16 @@ const getImageUrl = (network) => {
 const getSymbol = (network) => {
     switch (network) {
         case "ethereum":
+        case "goerli":
             return "ETH";
         case "cypress":
+        case "baobab":
             return "KLAY";
         case "polygon":
+        case "mumbai":
             return "MATIC";
         case "bnb":
+        case "tbnb":
             return "BNB";
     }
 }
@@ -98,6 +133,18 @@ const getDisplayNetwork = (network) => {
         case "BINANCE":
         case "bnb":
             return "BNB Chain";
+        case "GOERLI":
+        case "goerli":
+            return "Goerli";
+        case "BAOBAB":
+        case "baobab":
+            return "Baobab";
+        case "MUMBAI":
+        case "mumbai":
+            return "Mumbai";
+        case "TBNB":
+        case "tbnb":
+            return "BNB Testnet";
     }
 }
 
