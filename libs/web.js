@@ -34,8 +34,8 @@ const getCoinBridgeTotalFeeAsync = async (network, toNetwork) => {
             "goerli": "GOERLI",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
+            "tbnb" : "BNBTEST"
         }[toNetwork];
-
         if (!toNetwork) {
             throw new Error("Invalid main network type");
         }
@@ -64,6 +64,7 @@ const getBridgeTotalFeeAsync = async (network, toNetwork, collection_id, typed) 
             "goerli": "GOERLI",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
+            "tbnb" : "BNBTEST"
         }[toNetwork];
 
         if (!toNetwork) {
@@ -154,6 +155,7 @@ const tokenBridgeAppoveAsync = async (network, account, toNetwork, token_address
             "goerli": "GOERLI",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
+            "tbnb" : "BNBTEST"
         }[toNetwork];
 
         const erc20ConfigContract = new ethers.Contract(token_address, global.abiERC20, provider);
@@ -241,6 +243,7 @@ const bridgeCoinAsync = async (network, account, toNetwork, amount) => {
             "goerli": "GOERLI",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
+            "tbnb" : "BNBTEST"
         }[toNetwork];
 
         const toNetworkHex = globalJs.utils_textToHex(toNetwork); // network hex로 변환
@@ -315,6 +318,7 @@ const bridgeErc20AsyncAsync = async (network, account, toNetwork, token_address,
             "goerli": "GOERLI",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
+            "tbnb" : "BNBTEST"
         }[toNetwork];
 
         const toNetworkHex = globalJs.utils_textToHex(toNetwork); // network hex로 변환

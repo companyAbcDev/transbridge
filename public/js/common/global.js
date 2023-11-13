@@ -61,6 +61,19 @@ const getExplorer = (network, hash) => {
         case "BNBMAIN":
         case "bnb":
             return `https://bscscan.com/tx/${hash}`;
+        case "GOERLI":
+        case "goerli":
+            return `https://goerli.etherscan.io/tx/${hash}`;
+        case "BAOBAB":
+        case "baobab":
+            return `https://baobab.scope.klaytn.com/tx/${hash}`;
+        case "MUMBAI":
+        case "mumbai":
+            return `https://mumbai.polygonscan.com/tx/${hash}`;
+        case "TBNB":
+        case "tbnb":
+            return `https://testnet.bscscan.com/tx/${hash}`;
+            
     }
 }
 

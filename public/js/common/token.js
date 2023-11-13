@@ -46,6 +46,7 @@ const historyTokenView = async () => {
 
     for (const bridgeHistoryElement of data) {
         var date = daysDifference(bridgeHistoryElement.date);
+        date--
         if(date < 1) {
             date = "Today";
         } else {

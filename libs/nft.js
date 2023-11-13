@@ -14,6 +14,7 @@ const nftBridgeAppoveAsync = async (network, account, toNetwork, collection_id) 
             "goerli": "GOERLI",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
+            "tbnb" : "BNBTEST"
         }[toNetwork];
 
         const erc721ConfigContract = new ethers.Contract(collection_id, global.abiERC721, provider);
@@ -91,6 +92,7 @@ const bridgeErc721Async = async (network, account, toNetwork, contract_address, 
             "goerli": "GOERLI",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
+            "tbnb" : "BNBTEST"
         }[toNetwork];
 
         const toNetworkHex = globalJs.utils_textToHex(toNetwork); // network hex로 변환
@@ -200,6 +202,7 @@ const bridgeErc1155Async = async (network, account, toNetwork, contract_address,
             "goerli": "GOERLI",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
+            "tbnb" : "BNBTEST"
         }[toNetwork];
 
         const toNetworkHex = globalJs.utils_textToHex(toNetwork); // network hex로 변환

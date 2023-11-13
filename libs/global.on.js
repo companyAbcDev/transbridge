@@ -80,7 +80,7 @@ const networkSettings = (network) => {
             break;
         case "mumbai":
             global.rpcUrl = "https://polygon-mumbai.infura.io/v3/4458cf4d1689497b9a38b1d6bbf05e78";
-            global.maxPriorityFeePerGas = "1500000000";
+            global.maxPriorityFeePerGas = "1300000000";
             global.bridgeConfigContractAddress = "0xd6012f44f054a811ffae39c69660d3a759dae7e8";
             global.bridgeContractAddress = "0x9eab88e535d6676649c4b0b7f783ee53a29624df";
             global.bridgeSetupContractAddress = "0x09d51e8bbe25a114e8e1c6f280153dcc041eb1ef";
