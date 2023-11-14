@@ -1,8 +1,6 @@
 // Desc: web service
 const ethers = require('ethers');
 const globalJs = require('./global.on');
-const connect = require('./connect');
-const config = require("../config/config.json");
 const BigNumber = require('bignumber.js');
 
 const getBalance = async (network, account) => {
