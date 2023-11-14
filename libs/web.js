@@ -105,28 +105,16 @@ const formatDateToCustomString = (date) => {
 }
 
 const getHistory = async (account, types) => {
-    const connection = await connect.getConnection(config.db_testnet_connection);
-
-    if (!connection) {
-        return [];
-    }
 
     try {
-        const typesString = types.map(type => `'${type}'`).join(',');
-        const strQuery = `
-            SELECT resvId, event, nhId, account, toBlock, tokenType, fromBlock, fromNet, toNet, fromHash, toHash, fromToken, toToken, fromIdx, toIdx, amount, status, value, err, date
-            FROM CBRIDGE.bridgeLog
-            WHERE account = '${account}'
-            AND tokenType IN (${typesString})
-            AND fromNet IS NOT NULL
-            AND fromNet != ""
-            AND toNet IS NOT NULL
-            AND toNet != ""
-            ORDER BY date DESC
-        `;
+        const typesString = types.map(type => `${type}`).join(',');
 
-        const [rows] = await connect.runQuery(connection, strQuery, []);
+        const url = `http://61.43.57.41:6300/api/bridge-log?account=${account}&types=${typesString}&order=desc`
 
+        const urlCall = await fetch(url);
+
+        const rows = await urlCall.json();
+        
         // 1. date 형식 변경
         for (const row of rows) {
             if(!row.value) row.value = 18;
@@ -138,9 +126,7 @@ const getHistory = async (account, types) => {
         return rows;
     } catch (err) {
         throw err;
-    } finally {
-        connect.releaseConnection(connection);
-    }
+    } 
 }
 
 const tokenBridgeAppoveAsync = async (network, account, toNetwork, token_address, amount) => {
