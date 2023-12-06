@@ -1,3 +1,17 @@
+const detectMobileDevice = (agent) => {
+    const mobileRegex = [
+        /Android/i,
+        /iPhone/i,
+        /iPad/i,
+        /iPod/i,
+        /BlackBerry/i,
+        /Windows Phone/i
+    ]
+
+    return mobileRegex.some(mobile => agent.match(mobile))
+}
+
+const isMobile = detectMobileDevice(window.navigator.userAgent)
 
 // Mapping Chain ID to Network Name
 const CHAIN_MAPPING = {
@@ -354,6 +368,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         });
     });
+
+    if (isMobile) {
+        if(window.ethereum && window.ethereum.isMetaMask) {
+            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            if (accounts.length > 0) {
+                connectMetamask();
+            }
+        } else {
+            const url = 'https://metamask.app.link/dapp/transbridge.io/b2c';
+            window.location.href = url;
+        }
+
+    }
 
     // Metamask Installed Check
     const isMetaMaskInstalled = () => {
