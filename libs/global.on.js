@@ -67,6 +67,17 @@ const networkSettings = (network) => {
             global.nftTransferContractAddress = "0x12ef4a0ad6305ac351cf03666fcda571dd338cec";
             global.gasLimit = "0";
             break;
+        case "sepolia":
+            global.rpcUrl = "https://rpc.sepolia.org";
+            global.maxPriorityFeePerGas = "10";
+            global.bridgeConfigContractAddress = "0x9b0125085ccfec4e697b2e0d4ce0e3fe5f5eaf53";
+            global.bridgeContractAddress = "0x99c0c3fff607ea8c1c6e7ef66a7410bf9ab5db94";
+            global.bridgeSetupContractAddress = "0x65c3ff55f9d32e2144b25f20b3f833056d22e97c";
+            global.uniswapV2RouterAddress = "";
+            global.uniswapV2FactoryAddress = "";
+            global.nftTransferContractAddress = "0xcab822accb20114c715aad8ca3315204f6f81d90";
+            global.gasLimit = "0";
+            break;
         case "baobab":
             global.rpcUrl = "https://api.baobab.klaytn.net:8651";
             global.maxPriorityFeePerGas = "0";

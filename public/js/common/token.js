@@ -189,12 +189,12 @@ const tokenListView =  async (account) => {
 
     const balance = await getBalance(network, account);
 
-    let mainBalanceStr = balance.toString();
-    let mainDecimalIndex = mainBalanceStr.indexOf('.');
+    let mainBalanceStr = Number(balance);
+    // let mainDecimalIndex = mainBalanceStr.indexOf('.');
 
-    if (mainDecimalIndex !== -1 && mainBalanceStr.length - mainDecimalIndex - 1 > 5) {
-        mainBalanceStr = mainBalanceStr.slice(0, mainDecimalIndex + 6); // 소수점 포함 5자리까지만 슬라이스
-    }
+    // if (mainDecimalIndex !== -1 && mainBalanceStr.length - mainDecimalIndex - 1 > 5) {
+    //     mainBalanceStr = mainBalanceStr.slice(0, mainDecimalIndex + 6); // 소수점 포함 5자리까지만 슬라이스
+    // }
 
     document.querySelector(`.${network}-list`).innerHTML = "";
 
@@ -212,12 +212,12 @@ const tokenListView =  async (account) => {
         let sum = 0;
         for (const tokenListElement of token_list) {
             sum++;
-            let balanceStr = tokenListElement.balance;
-            let decimalIndex = balanceStr.indexOf('.');
+            let balanceStr = Number(tokenListElement.balance);
+            // let decimalIndex = balanceStr.indexOf('.');
 
-            if (decimalIndex !== -1 && balanceStr.length - decimalIndex - 1 > 5) {
-                balanceStr = balanceStr.slice(0, decimalIndex + 6); // 소수점 포함 5자리까지만 슬라이스
-            }
+            // if (decimalIndex !== -1 && balanceStr.length - decimalIndex - 1 > 5) {
+            //     balanceStr = balanceStr.slice(0, decimalIndex + 6); // 소수점 포함 5자리까지만 슬라이스
+            // }
 
             const nftOption = `
                 <li class="tokenCheck" data-balance="${tokenListElement.balance}" data-contract="${tokenListElement.token_id}" data-decimals="${tokenListElement.decimals}" data-image="${tokenListElement.image}" data-name="${tokenListElement.name}" data-symbol="${tokenListElement.symbol}">
@@ -229,7 +229,7 @@ const tokenListView =  async (account) => {
                         ${tokenListElement.symbol}
                     </div>
                     <div>
-                        <div>${balanceStr}</div>
+                        <div>${balanceStr.toFixed(6)}</div>
                         <p class="token-ckd-txt" style="cursor: pointer">Select</p>
                     </div>
                 </li>
@@ -264,7 +264,7 @@ const tokenListView =  async (account) => {
                         ${getSymbol(network)}
                     </div>
                     <div>
-                        <div>${mainBalanceStr}</div>
+                        <div>${mainBalanceStr.toFixed(5)}</div>
                         <p class="token-ckd-txt" style="cursor: pointer">Select</p>
                     </div>
                 </li>
@@ -311,6 +311,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Token Select
         if (event.target.closest('.tokenCheck')) {
+            hideErrors();
+            minBridgeMov('right')
             const tokenCheck = event.target.closest('.tokenCheck');
             const maxAmount = document.querySelector('.maxAmount');
             maxAmount.style.color = 'black';

@@ -1,4 +1,5 @@
 const createError = require("http-errors");
+const expressLayouts = require('express-ejs-layouts');
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -10,8 +11,9 @@ const webRouter = require("./routes/web");
 const app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(expressLayouts);
 
 app.use(cors());
 app.use(function (req, res, next) {

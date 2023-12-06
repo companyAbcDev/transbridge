@@ -1,6 +1,6 @@
 // Hide errors
 const hideErrors = () => {
-    document.querySelectorAll('.err_txt').forEach(element => element.style.display = 'none');
+    document.querySelectorAll('.err-txt').forEach(element => element.style.display = 'none');
 };
 
 // Show error
@@ -61,9 +61,9 @@ const getExplorer = (network, hash) => {
         case "BNBMAIN":
         case "bnb":
             return `https://bscscan.com/tx/${hash}`;
-        case "GOERLI":
-        case "goerli":
-            return `https://goerli.etherscan.io/tx/${hash}`;
+        case "SEPOLIA":
+        case "sepolia":
+            return `https://sepolia.etherscan.io/tx/${hash}`;
         case "BAOBAB":
         case "baobab":
             return `https://baobab.scope.klaytn.com/tx/${hash}`;
@@ -80,8 +80,8 @@ const getExplorer = (network, hash) => {
 // Get Img Url Function
 const getImageUrl = (network) => {
     switch (network) {
-        case "GOERLI":
-        case "goerli":
+        case "SEPOLIA":
+        case "sepolia":
         case "ETHEREUM":
         case "ethereum":
             return "/img/ethereum.png";
@@ -107,7 +107,7 @@ const getImageUrl = (network) => {
 const getSymbol = (network) => {
     switch (network) {
         case "ethereum":
-        case "goerli":
+        case "sepolia":
             return "ETH";
         case "cypress":
         case "baobab":
@@ -146,9 +146,9 @@ const getDisplayNetwork = (network) => {
         case "BINANCE":
         case "bnb":
             return "BNB Chain";
-        case "GOERLI":
-        case "goerli":
-            return "Goerli";
+        case "SEPOLIA":
+        case "sepolia":
+            return "Sepolia";
         case "BAOBAB":
         case "baobab":
             return "Baobab";

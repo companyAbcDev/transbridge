@@ -29,7 +29,7 @@ const getCoinBridgeTotalFeeAsync = async (network, toNetwork) => {
             "cypress": "KLAYTN",
             "polygon": "POLYGON",
             "bnb": "BNBMAIN",
-            "goerli": "GOERLI",
+            "sepolia": "SEPOLIA",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
             "tbnb" : "BNBTEST"
@@ -59,7 +59,7 @@ const getBridgeTotalFeeAsync = async (network, toNetwork, collection_id, typed) 
             "cypress": "KLAYTN",
             "polygon": "POLYGON",
             "bnb": "BNBMAIN",
-            "goerli": "GOERLI",
+            "sepolia": "SEPOLIA",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
             "tbnb" : "BNBTEST"
@@ -136,7 +136,7 @@ const tokenBridgeAppoveAsync = async (network, account, toNetwork, token_address
             "cypress": "KLAYTN",
             "polygon": "POLYGON",
             "bnb": "BNBMAIN",
-            "goerli": "GOERLI",
+            "sepolia": "SEPOLIA",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
             "tbnb" : "BNBTEST"
@@ -224,7 +224,7 @@ const bridgeCoinAsync = async (network, account, toNetwork, amount) => {
             "cypress": "KLAYTN",
             "polygon": "POLYGON",
             "bnb": "BNBMAIN",
-            "goerli": "GOERLI",
+            "sepolia": "SEPOLIA",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
             "tbnb" : "BNBTEST"
@@ -299,7 +299,7 @@ const bridgeErc20AsyncAsync = async (network, account, toNetwork, token_address,
             "cypress": "KLAYTN",
             "polygon": "POLYGON",
             "bnb": "BNBMAIN",
-            "goerli": "GOERLI",
+            "sepolia": "SEPOLIA",
             "baobab": "BAOBAB",
             "mumbai": "MUMBAI",
             "tbnb" : "BNBTEST"

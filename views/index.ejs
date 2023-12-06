@@ -1,69 +1,11 @@
-<!DOCTYPE html>
-<html lang="en" color-theme="light">
 
-<head>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TransBridge</title>
-        <!-- <link rel="stylesheet" href="transbridgecss/transbridge.css"> -->
-        <link rel="stylesheet" href="/css/transbridge.css">
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.1.2/web3.min.js"></script>
-        <script src="/js/main.js"></script>
-        <script src="/js/common/global.js"></script>
-        <script src="/js/bridge.js"></script>
-        <script src="/js/common/token.js"></script>
-        <script src="/js/common/metamask.js"></script>
-    </head>
-</head>
+<%- include('./ejs/header', { pageName: 'index' }) %>
 
 <body class="d-flex flex-column min-vh-100">
     <div class="wrap">
         <header>
 
-            <div class="size-desktop">
-
-                <div class="header-left" onclick="location.href='/'">
-                    <div class="logo"></div>
-                    <span>TransBridge</span>
-                </div>
-        
-                <ul class="header-menu">
-                    <li class="token-menu header-menu-ckd">
-                        <a href="/">
-                            <span>Bridge</span>
-                        </a>
-                    </li>
-                    <li class="nft-menu">
-                        <a href="/nft">
-                            <span>NFT Bridge</span>
-                        </a>
-                    </li>
-        
-                </ul>
-                <div style="display: flex">
-                    <button class="connect-wallet-bt" onclick="connectWallet()">
-                        CONNECT WALLET
-                    </button>
-                    <!-- display: flex -->
-                    <div class="wallet-item" style="display: none;">
-                        <div>
-                            <p class="connected_balance"></p>
-                        </div>
-        
-                        <div class="wallet-adress">
-                            <button class="mainnet-change-bt connected_account" onclick="layerOpen('wallet')">
-        
-                            </button>
-                        </div>
-                    </div>
-        
-                    <button class="b2b-link-bt" onclick="window.open('https://github.com/companyAbcDev/transbridge', '_blank')">Github</button>
-                </div>
-        
-        
-            </div>
+            <%- include('./ejs/nav') %>
         </header>
 
 
@@ -73,8 +15,11 @@
             <div class="bridge size-desktop">
                 <!-- LEFT -->
                 <div>
+                    <button class="right-bt" onclick="minBridgeMov('left')">
+                        <span>Portfolio</span> <i></i>
+                    </button>
                     <div class="bridge-hd">
-                        <h1>NFT Bridge</h1>
+                        <h1>Token Bridge</h1>
                         <p>
                             체인을 통해 자산을 보내보세요.
                         </p>
@@ -86,14 +31,14 @@
                             <p>From...</p>
 
                             <ul class="mainnet-select-list">
-                                <li class="fromNetworkChange" data-network="goerli"
+                                <li class="fromNetworkChange" data-network="sepolia"
                                     data-image="/img/ethereum.png">
                                     <label>
                                         <input type="radio" name="mainnet-change" value="0x5">
                                         <div>
                                             <div>
                                                 <i class="token-icon"><img src="/img/ethereum.png"></i>
-                                                Goerli
+                                                Sepolia
                                             </div>
 
                                         </div>
@@ -143,14 +88,14 @@
                             <p>To...</p>
 
                             <ul class="mainnet-select-list">
-                                <li class="toNetworkChange" data-network="goerli"
+                                <li class="toNetworkChange" data-network="sepolia"
                                     data-image="/img/ethereum.png">
                                     <label>
-                                        <input type="radio" name="mainnet-list" value="goerli">
+                                        <input type="radio" name="mainnet-list" value="sepolia">
                                         <div>
                                             <div>
                                                 <i class="token-icon"><img src="/img/ethereum.png"></i>
-                                                Goerli
+                                                Sepolia
                                             </div>
 
                                         </div>
@@ -214,7 +159,7 @@
                                 </i>
                                 <div>
                                     <span>From</span>
-                                    <p class="fromNetwork">Goerli</p>
+                                    <p class="fromNetwork">Sepolia</p>
                                 </div>
                             </div>
 
@@ -242,8 +187,8 @@
                                 </i>
                                 <div>
                                     <span>To</span>
-                                    <p class="toNetwork" style="display: none">goerli</p>
-                                    <p class="toNetworkFront">Goerli</p>
+                                    <p class="toNetwork" style="display: none">sepolia</p>
+                                    <p class="toNetworkFront">Sepolia</p>
                                 </div>
                             </div>
 
@@ -296,6 +241,9 @@
                 </div>
                 <!-- RIGHT -->
                 <div>
+                    <button class="left-bt" onclick="minBridgeMov('right')">
+                        <i></i><span>bridge</span>
+                    </button>
                     <div class="bridge-tap">
                         <label>
                             <input type="radio" name="bridge-tap" checked="">
@@ -357,25 +305,25 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="bridge-list goerli-connect">
+                        <div class="bridge-list sepolia-connect">
                             <div class="bridge-list-mainnet">
                                 <div>
                                     <i class="token-icon"><img src="/img/ethereum.png"></i>
-                                    <span>Goerli</span>
+                                    <span>Sepolia</span>
                                 </div>
                                 <div>
                                     <label>
-                                        <input type="radio" name="mainnet-change" value="0x5">
-                                        <div class="connect-bt" id="goerli-connect-text">connect</div>
+                                        <input type="radio" name="mainnet-change" value="0xaa36a7">
+                                        <div class="connect-bt" id="sepolia-connect-text">connect</div>
                                     </label>
-                                    <div class="loader goerliLoader" style="display:none;"></div>
-                                    <div class="down-icon goerliDown" onclick="nftListOpen(this)"><i></i></div>
+                                    <div class="loader sepoliaLoader" style="display:none;"></div>
+                                    <div class="down-icon sepoliaDown" onclick="nftListOpen(this)"><i></i></div>
                                 </div>
 
                             </div>
-                            <ul class="token-box goerli-list" style="height: auto;">
+                            <ul class="token-box sepolia-list" style="height: auto;">
                                 <!-- 없 -->
-                                <li class="goerliNoneToken" style="display: none;">
+                                <li class="sepoliaNoneToken" style="display: none;">
                                     <p>
                                         This Network does not have Token.
                                     </p>
@@ -676,6 +624,4 @@
 
     </div>
 
-</body>
-
-</html>
+<%- include('./ejs/footer', { pageName: 'index' }) %>

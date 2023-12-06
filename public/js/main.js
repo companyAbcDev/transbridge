@@ -1,3 +1,29 @@
+
+// 스크롤 막기
+function disableScroll() {
+    // 표준 방법
+    document.body.style.overflow = 'hidden';
+  
+    // 크로스 브라우징을 위한 추가 설정
+    document.documentElement.style.overflow = 'hidden';
+  
+    // 모바일에서의 스크롤을 막기 위한 설정
+    document.body.style.position = 'fixed';
+  }
+  
+  // 스크롤 허용
+  function enableScroll() {
+    // 표준 방법
+    document.body.style.overflow = '';
+  
+    // 크로스 브라우징을 위한 추가 설정
+    document.documentElement.style.overflow = '';
+  
+    // 모바일에서의 스크롤을 허용하기 위한 설정
+    document.body.style.position = '';
+  }
+  
+
 var lastScrollTop = 0;
 
 function headerScrollMov() {
@@ -33,8 +59,17 @@ function headerScrollMov() {
         headerDiv.style.transform = 'translateY(0rem)';
         headerDiv.style.opacity = '1'
     }
-
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+}
+function headerminScrollMov() {
+    let scrollPos = window.scrollY
+    const headerDiv = document.querySelector('header');
+    
+    if (scrollPos < 200) {
+        headerDiv.style.background = 'none';
+    } else {
+        headerDiv.style.background = 'rgba(0,0,0,0.5)';
+    }
 }
 
 window.addEventListener("scroll", headerScrollMov);
@@ -89,7 +124,7 @@ function isElementInViewport(el) {
     const rect = el.getBoundingClientRect();
     return (
         // rect.top >= -500 &&
-        rect.bottom - 500 <= (window.innerHeight || document.documentElement.clientHeight)
+        rect.top + 100 <= (window.innerHeight || document.documentElement.clientHeight)
     );
 }
 
@@ -128,3 +163,29 @@ function b2bmainTap() {
         }
     }
 }
+
+
+// 헤더
+
+function minMenuCom() {
+    const minTapMom = document.querySelector('.min-tap');
+    minTapMom.classList.toggle('min-tap-option');
+    menuUpMov(minTapMom)
+}
+function menuUpMov(minTapMom) {
+    const activeMenu = document.querySelectorAll(".min-tap-menu > li");
+    activeMenu.forEach(function (activeMenu, index) {
+        setTimeout(() => {
+            if (minTapMom.classList.contains('min-tap-option')) {
+                activeMenu.style.opacity = "1";
+                activeMenu.style.transform = "translateY(0rem)";
+                disableScroll();
+            } else {
+                activeMenu.style.opacity = "0";
+                activeMenu.style.transform = "translateY(5rem)";
+                enableScroll();
+            }
+        }, index * 100)
+    });
+}
+

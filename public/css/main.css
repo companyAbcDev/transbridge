@@ -116,7 +116,6 @@ header .logo {
 .header-left {
   display: flex;
   align-items: center;
-  cursor: pointer;
 }
 
 .tap-menu {

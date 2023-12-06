@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuCheck = window.location.pathname;
+            console.log(menuCheck);
+            if (menuCheck === '/b2c/token') {
+                document.querySelector('.token-menu').classList.add('header-menu-ckd');
+            } else if (menuCheck === '/b2c/nft') {
+                document.querySelector('.nft-menu').classList.add('header-menu-ckd');
+            }
+        })
+    </script>
+</html>

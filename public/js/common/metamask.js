@@ -6,6 +6,7 @@ const CHAIN_MAPPING = {
     polygon: "0x89",
     bnb: "0x38",
     goerli : "0x5",
+    sepolia : "0xaa36a7",
     baobab: "0x3e9",
     mumbai : "0x13881",
     tbnb : "0x61"
@@ -39,7 +40,7 @@ const htmlInit = () => {
 
     document.querySelector('.baseFee').innerHTML = `<h1>-</h1>`;
     document.querySelector('.nftDeployFee').innerHTML = `<h1>-</h1>`;
-    document.querySelector('.toNetworkFront').innerHTML = "Goerli";
+    document.querySelector('.toNetworkFront').innerHTML = "Sepolia";
     document.querySelector('.toNetworkImage').innerHTML = `<img src="/img/ethereum.png">`;
 
     connectMetamask();
@@ -63,6 +64,9 @@ const getNetwork = async (_chainId) => {
             break;
         case "0x5":
             network = "goerli"
+            break;
+        case "0xaa36a7":
+            network = "sepolia"
             break;
         case "0x3e9":
             network = "baobab"
@@ -120,7 +124,7 @@ const addNetwork = async (_chainId) => {
                 decimals: 18
             },
                 blockExplorerUrls = ["https://bscscan.com/"]
-            break
+            break;
         case "0x5":
             chainName = "Goerli Testnet";
             rpcUrls = ["https://rpc.ankr.com/eth_goerli"];
@@ -129,6 +133,15 @@ const addNetwork = async (_chainId) => {
                 decimals: 18
             };
             blockExplorerUrls = ["https://goerli.etherscan.io/"];
+            break;
+        case "0xaa36a7":
+            chainName = "Sepolia Testnet";
+            rpcUrls = ["https://rpc.sepolia.org"];
+            nativeCurrency = {
+                symbol: 'ETH',
+                decimals: 18
+            };
+            blockExplorerUrls = ["https://sepolia.etherscan.io/"];
             break;
         case "0x3e9":
             chainName = "Klaytn Baobab";
@@ -289,7 +302,9 @@ const changeAccount = async () => {
 
 // Disconnect Metamask
 const disconnectMetamask = async () => {
-    location.reload();
+    const href = window.location.href;
+    const delimiter = href.match(/\?/) ? "&" : "?";
+    window.location.href += delimiter + "connectOnLoad=true";
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -345,13 +360,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         return Boolean(window.ethereum && window.ethereum.isMetaMask);
     };
     if (isMetaMaskInstalled()) {
+        const params = new URLSearchParams(window.location.search);
+        const connectOnLoad = params.get("connectOnLoad") === "true";
         document.querySelector('.connect-chrome').style.display = 'none';
         document.querySelector('.connect-wallet').style.display = 'flex';
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-        if (accounts.length > 0) {
-            connectMetamask();
+        if (!connectOnLoad) {
+            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            if (accounts.length > 0) {
+                connectMetamask();
+            }
         }
-
     }
 
 });

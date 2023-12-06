@@ -19,7 +19,7 @@ function connectWallet() {
 //         크툴루는 NFT의 활용성을 극대화시키는 NFT 전용 지갑입니다.
 //     </p>
 
-//     <img src="../transbridgeImg/kthulu-connect-transbridgelogo.png" alt="">
+//     <img src="../transbridgeImg/kthulu-connect-img.png" alt="">
 
 //     <p> 
 //         NFT에 특화된 다양한 편의 기능을 제공하고, 블록체인 세상 속 <br /> 
@@ -240,7 +240,7 @@ document.addEventListener('click', function () {
     }
 })
 
-// mainnetchange
+// mainnetchagne
 // let ismainnetChangeView = false;
 
 // function mainnetChangeView() {
@@ -267,7 +267,7 @@ document.addEventListener('click', function () {
 // function brdigeReset() {
 //     const mainnetBox = document.querySelector('.bridge-nft-from');
 //     const emptyMainnet = `<i class="token-icon">
-//     <img src="../img/noimg.svg" alt="">
+//     <img src="../assets/img/noimg.svg" alt="">
 //     </i>
 //     <div>
 //         <span>From</span>
@@ -304,4 +304,20 @@ async function toastAlert() {
         toastAlert.style.opacity = '0';
         toastAlert.style.transform = 'translateX(-50%) translateY(5rem)';
     }, 3000);
+}
+
+function minBridgeMov(pos) {
+    const leftContent = document.querySelector('.bridge > div:nth-child(1)');
+    const rightContent = document.querySelector('.bridge > div:nth-child(2)');
+    var windowWidth = window.innerWidth;
+    if (windowWidth <= 768) {
+        if(pos === 'left') {
+            leftContent.style.left = '-100%';
+            rightContent.style.left = '0';
+        }
+        if(pos === 'right') {
+            leftContent.style.left = '0';
+            rightContent.style.left = '100%';
+        }
+    }
 }

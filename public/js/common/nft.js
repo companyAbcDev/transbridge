@@ -256,6 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // NFT Select
         if (event.target.closest('.nftCheck')) {
+            hideErrors();
+            minBridgeMov('right')
             document.querySelector('.noNftSelect').style.display = 'none';
             document.querySelector('.select-nft').style.display = 'flex';
 
